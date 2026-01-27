@@ -8,15 +8,27 @@ insert into dermatologista (nome, crm, login, senha) values
 -- Catálogo Médico
 insert into medicamento (nome_comercial, principio_ativo) values
 ('Roacutan', 'Isotretinoina'),
-('Azellan', 'Ácido Azelaico');
+('Azellan', 'Ácido Azelaico'),
+('Pant', 'Minoxidil'),                   
+('Daivobet', 'Calcipotriol + Betametasona'), 
+('Vitanol-A', 'Tretinoína'),             
+('Adinos', 'Desonida');
 
 insert into procedimento (nome, preco) values
 ('Limpeza de Pele Profunda', 180.00),
-('Peeling Químico Renovador', 250.00);
+('Peeling Químico Renovador', 250.00),
+('Aplicação de Toxina Botulínica (Botox)', 1200.00), 
+('Biópsia de Pele (Punch)', 350.00),                 
+('Cauterização de Verrugas', 150.00),                
+('Sessão de Laser CO2 Fracionado', 800.00);
 
 insert into diagnostico (nome_doenca, codigo_cid) values
 ('Acne Cística', 'L70.0'),
-('Melasma', 'L81.1');
+('Melasma', 'L81.1'),
+('Alopecia Androgenética', 'L64'),       
+('Dermatite Atópica', 'L20'),            
+('Psoríase Vulgar', 'L40.0'),            
+('Carcinoma Basocelular', 'C44');
 
 -- Cadastro de Pacientes
 insert into paciente (nome, cpf, sexo, data_nasc, endereco, celular) values 
