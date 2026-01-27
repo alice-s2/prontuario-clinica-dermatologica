@@ -46,7 +46,8 @@ create table atendimento(
 	queixa text,
 	exame_fisico text,
 	hipotese_diagnostica text,
-	conduta text
+	conduta text,
+	id_consulta integer unique references consulta(id_consulta)
 );
 
 create table diagnostico(
