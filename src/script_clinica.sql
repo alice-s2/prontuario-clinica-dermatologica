@@ -32,8 +32,9 @@ create table dermatologista(
 
 create table consulta(
 	id_consulta serial primary key,
+	observacao text,
 	data_hora timestamp not null,
-	status varchar(20),
+	status varchar(20) check (status in('Agendada', 'Realizada', 'Cancelada')),
 	valor numeric(10, 2),
 	forma_pagamento varchar(20),
 	id_paciente integer references paciente(id_paciente),
