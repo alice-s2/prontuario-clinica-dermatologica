@@ -20,6 +20,8 @@ insert into medicamento (nome_comercial, principio_ativo) values
 ('Adinos', 'Desonida');                      
 
 insert into procedimento (nome, preco) values
+('Consulta Dermatológica (Rotina)', 100.00),
+('Consulta Especializada (Tricologia)', 300.00),
 ('Limpeza de Pele Profunda', 180.00),               
 ('Peeling Químico Renovador', 250.00),              
 ('Aplicação de Toxina Botulínica (Botox)', 1200.00),
@@ -53,13 +55,13 @@ insert into prontuario (id_paciente, alergias, historico_familiar, tipo_pele) va
 
 --- Fluxo de Atendimento ---
 
-insert into consulta (data_hora, status, valor, forma_pagamento, id_paciente, id_sec, id_derm) values
-('2026-01-30 14:00:00', 'Realizada', 250.00, 'Pix', 1, 1, 1),
-('2026-02-02 10:30:00', 'Realizada', 250.00, 'Cartão Crédito', 2, 1, 1),
-('2026-02-03 16:00:00', 'Realizada', 300.00, 'Dinheiro', 3, 2, 2), 
-('2026-02-04 09:00:00', 'Realizada', 250.00, 'Cartão Débito', 5, 2, 2), 
-('2026-02-05 11:00:00', 'Cancelada', 0.00, NULL, 4, 3, 1), 
-('2026-03-01 14:00:00', 'Agendada', 250.00, NULL, 1, 1, 1);
+insert into consulta (observacao, data_hora, status, valor, forma_pagamento, id_paciente, id_sec, id_derm) values
+('Queixa de acne. Agendado procedimento de limpeza.', '2026-01-30 14:00', 'Realizada', 280.00, 'Pix', 1, 1, 1),
+('Avaliação de manchas e peeling.', '2026-02-02 10:30', 'Realizada', 350.00, 'Cartão Crédito', 2, 1, 1),
+('Primeira consulta capilar (Tricologia).', '2026-02-03 16:00', 'Realizada', 300.00, 'Dinheiro', 3, 2, 2), 
+('Urgência: Lesão suspeita no nariz.', '2026-02-04 09:00', 'Realizada', 450.00, 'Cartão Débito', 5, 2, 2), 
+('Paciente desmarcou por motivo de viagem.', '2026-02-05 11:00', 'Cancelada', 0.00, NULL, 4, 3, 1), 
+('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1);
 
 --- Detalhes do Atendimento ---
 
@@ -83,6 +85,7 @@ insert into prescreve (id_atendimento, id_med, modo_de_uso) values
 (3, 3, 'Aplicar 1ml no couro cabeludo 2x ao dia (Minoxidil)');
 
 insert into registra (id_atendimento, id_proc, regiao_corpo) values
-(1, 1, 'Face completa'),      
-(2, 2, 'Face (Zona T)'),      
-(4, 4, 'Asa nasal esquerda');
+(1, 1, 'Avaliação Geral'), (1, 3, 'Face completa'),  -- consulta (R$100) + limpeza (R$180)
+(2, 1, 'Avaliação Geral'), (2, 4, 'Face (Zona T)'),  -- consulta (R$100) + peeling (R$250)
+(3, 2, 'Couro Cabeludo'),  -- consulta especializada tricologica (R$300)
+(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda');  -- consulta (R$100) + biópsia (R$350)
