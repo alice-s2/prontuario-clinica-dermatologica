@@ -10,4 +10,15 @@ O projeto simula um prontuário eletrônico de uma clínica dermatológica, com 
 ## Tecnologias Utilizadas
 - PostgreSQL
 - pgAdmin 4
-- DBeaver 25.3.3
+
+## Estrutura do Projeto
+- `src/script.sql`: Script para criação das tabelas e relacionamentos
+- `src/insert_dados.sql`: Script para população do banco com cenários de teste
+- `src/queries_teste.sql`: Consultas SQL para validação das regras de negócio (Faturamento, Agenda, etc)
+- `docs/regras_negocio.md`: Documentação detalhada das regras implementadas
+
+## Como Rodar
+1.  Crie um banco de dados no PostgreSQL chamado `clinica_dermato`
+2.  Execute o arquivo `script.sql` para criar a estrutura
+3.  Execute o arquivo `insert_dados.sql` para popular com dados de teste
+4.  Execute os comandos de `queries_teste.sql` para visualizar os relatórios
