@@ -29,3 +29,35 @@ from consulta join paciente on consulta.id_paciente = paciente.id_paciente
 			  join prescreve on atendimento.id_atendimento = prescreve.id_atendimento
 			  join medicamento on prescreve.id_med = medicamento.id_med
 where paciente.nome = 'Letícia Mendes';
+
+/* 6. Exibir nome do paciente, data de consulta e uma nova coluna "Categoria":
+    	- Se o valor da consulta for R$0.00 --> 'Gratuita/Cancelada'
+		- Se for até R$200.00 --> 'Ticket Baixo'
+		- Se for entre R$201.00 e R$400.00 --> 'Ticket Médio'
+		- Se for maior que R$400.00 --> 'Ticket Alto'
+*/
+select paciente.nome, consulta.data_hora,
+	case 
+		when consulta.valor = 0.00 then 'Gratuita/Cancelada'
+		when consulta.valor <= 200.00 then 'Ticket Baixo'
+		when consulta.valor <= 400.00 then 'Ticket Médio'
+		else 'Ticket Alto'
+	end as categoria
+from consulta join paciente on consulta.id_paciente = paciente.id_paciente
+order by consulta.valor desc;
+
+-- 7. Exibir nome e celular de todos pacientes que não tem nenhuma consulta realizada em 2026.
+select nome, celular
+from paciente 
+where id_paciente not in (
+	select id_paciente 
+	from consulta
+	where status = 'Realizada' and extract (year from data_hora) = 2026
+);
+
+-- 8. Exibir procedimento que gerou a maior receita total para a clínica.
+select procedimento.nome as "Procedimento", sum(procedimento.preco) as "Faturamento"
+from procedimento join registra on procedimento.id_proc = registra.id_proc
+group by procedimento.nome
+order by sum(procedimento.preco) desc
+limit 1;
