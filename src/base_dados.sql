@@ -44,7 +44,8 @@ insert into paciente (nome, cpf, sexo, data_nasc, endereco, celular) values
 ('Maria Helena', '22233344455', 'F', '1970-09-12', 'R. Caxias, 120, Vila Vera Cruz, Passo Fundo/RS', '54998887474'),
 ('Roberto Campos', '33344455566', 'M', '1995-02-20', 'Rua dos Andradas, 100, Centro Histórico, Porto Alegre/RS', '51988881111'),
 ('Juliana Costa', '44455566677', 'F', '1988-11-05', 'Av. Beira Mar Norte, 200, Agronômica, Florianópolis/SC', '48977772222'),
-('Sr. Antônio Silva', '55566677788', 'M', '1955-07-30', 'Rua XV de Novembro, 500, Centro, Curitiba/PR', '41999993333');
+('Sr. Antônio Silva', '55566677788', 'M', '1955-07-30', 'Rua XV de Novembro, 500, Centro, Curitiba/PR', '41999993333'),
+('Sofia Ricci', '66677788899', 'F', '2005-12-01', 'R. Alegrete, 555, Niterói, Canoas/RS', '51994948181');
 
 insert into prontuario (id_paciente, alergias, historico_familiar, tipo_pele) values
 (1, 'Nenhuma', 'Mãe tem melasma', 'Oleosa'),
@@ -61,7 +62,9 @@ insert into consulta (observacao, data_hora, status, valor, forma_pagamento, id_
 ('Primeira consulta capilar (Tricologia).', '2026-02-03 16:00', 'Realizada', 300.00, 'Dinheiro', 3, 2, 2), 
 ('Urgência: Lesão suspeita no nariz.', '2026-02-04 09:00', 'Realizada', 450.00, 'Cartão Débito', 5, 2, 2), 
 ('Paciente desmarcou por motivo de viagem.', '2026-02-05 11:00', 'Cancelada', 0.00, NULL, 4, 3, 1), 
-('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1);
+('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1),
+('Aplicação de toxina botulínica preventiva.', '2026-02-15 14:00', 'Realizada', 1300.00, 'Cartão Crédito', 1, 1, 1), 
+('Sessão de Laser para cicatrizes de acne antigas.', '2026-02-18 16:30', 'Realizada', 900.00, 'Pix', 3, 2, 2);    
 
 --- Detalhes do Atendimento ---
 
@@ -69,7 +72,9 @@ insert into atendimento (queixa, exame_fisico, hipotese_diagnostica, conduta, id
 ('Aumento de espinhas doloridas.', 'Pústulas inflamadas grau 3.', 'Acne Severa', 'Início de isotretinoína.', 1),
 ('Manchas escuras.', 'Hiperpigmentação malar.', 'Melasma Misto', 'Uso de ácidos e filtro solar.', 2),
 ('Entradas aumentando e cabelo ralo no topo.', 'Teste de tração positivo. Afinamento folicular.', 'Alopecia Androgenética', 'Iniciar minoxidil tópico e agendar laser.', 3),
-('Ferida no nariz que não cicatriza há 3 meses.', 'Lesão perolada com vasos visíveis na asa nasal esquerda.', 'Carcinoma Basocelular', 'Realizar biópsia punch imediata para confirmação.', 4);
+('Ferida no nariz que não cicatriza há 3 meses.', 'Lesão perolada com vasos visíveis na asa nasal esquerda.', 'Carcinoma Basocelular', 'Realizar biópsia punch imediata para confirmação.', 4),
+('Linhas de expressão na testa.', 'Rugas dinâmicas visíveis.', 'Envelhecimento precoce', 'Aplicação de Botox.', 7), 
+('Cicatrizes no rosto.', 'Marcas de acne atróficas.', 'Sequela de Acne', 'Sessão de Laser CO2.', 8);             
 
 --- Tabelas de Ligação --- 
 
@@ -88,4 +93,6 @@ insert into registra (id_atendimento, id_proc, regiao_corpo) values
 (1, 1, 'Avaliação Geral'), (1, 3, 'Face completa'),  -- consulta (R$100) + limpeza (R$180)
 (2, 1, 'Avaliação Geral'), (2, 4, 'Face (Zona T)'),  -- consulta (R$100) + peeling (R$250)
 (3, 2, 'Couro Cabeludo'),  -- consulta especializada tricologica (R$300)
-(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda');  -- consulta (R$100) + biópsia (R$350)
+(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda'),  -- consulta (R$100) + biópsia (R$350)
+(5, 1, 'Avaliação'), (5, 5, 'Testa e Glabela'),  -- consulta (R$100) + botox (R$1200) 
+(6, 1, 'Avaliação'), (6, 8, 'Face lateral');  -- consulta (R$100) + laser (R$800)
