@@ -35,24 +35,48 @@ insert into diagnostico (nome_doenca, codigo_cid) values
 ('Alopecia Androgenética', 'L64'),     
 ('Dermatite Atópica', 'L20'),          
 ('Psoríase Vulgar', 'L40.0'),          
-('Carcinoma Basocelular', 'C44');      
+('Carcinoma Basocelular', 'C44');  
+
+insert into alergia (nome_alergia) values
+('Sulfa'),
+('Dipirona'),
+('Penicilina'),
+('AAS (Ácido Acetilsalicílico)'),
+('Anti-inflamatórios (AINEs)'),
+('Lidocaína'),      
+('Látex'),          
+('Iodo'),           
+('Esparadrapo'),    
+('Timerosal'),      
+('Níquel'),         
+('Parabenos'),      
+('Frutos do Mar'), 
+('Corantes'),       
+('Glúten'),         
+('Lactose');
 
 --- Cadastro de Pacientes ---
 
-insert into paciente (nome, cpf, sexo, data_nasc, endereco, celular) values 
-('Letícia Mendes', '11122233344', 'F', '2003-05-15', 'Av. Brasil Oeste, 560, Centro, Passo Fundo/RS', '54999998888'),
-('Maria Helena', '22233344455', 'F', '1970-09-12', 'R. Caxias, 120, Vila Vera Cruz, Passo Fundo/RS', '54998887474'),
-('Roberto Campos', '33344455566', 'M', '1995-02-20', 'Rua dos Andradas, 100, Centro Histórico, Porto Alegre/RS', '51988881111'),
-('Juliana Costa', '44455566677', 'F', '1988-11-05', 'Av. Beira Mar Norte, 200, Agronômica, Florianópolis/SC', '48977772222'),
-('Sr. Antônio Silva', '55566677788', 'M', '1955-07-30', 'Rua XV de Novembro, 500, Centro, Curitiba/PR', '41999993333'),
-('Sofia Ricci', '66677788899', 'F', '2005-12-01', 'R. Alegrete, 555, Niterói, Canoas/RS', '51994948181');
+insert into paciente (nome, cpf, sexo, data_nasc, celular) values 
+('Letícia Mendes', '11122233344', 'F', '2003-05-15', '54999998888'),
+('Maria Helena', '22233344455', 'F', '1970-09-12', '54998887474'),
+('Roberto Campos', '33344455566', 'M', '1995-02-20', '51988881111'),
+('Juliana Costa', '44455566677', 'F', '1988-11-05', '48977772222'),
+('Sr. Antônio Silva', '55566677788', 'M', '1955-07-30', '41999993333');
 
-insert into prontuario (id_paciente, alergias, historico_familiar, tipo_pele) values
-(1, 'Nenhuma', 'Mãe tem melasma', 'Oleosa'),
-(2, 'Alergia a Sulfa', 'Histórico de câncer de pele na família', 'Seca/sensível'),
-(3, 'Nenhuma', 'Pai e avô calvos', 'Mista'),                       
-(4, 'Alergia a Dipirona', 'Psoríase na família materna', 'Ressecada'), 
-(5, 'Diabético', 'Histórico de melanoma no irmão', 'Danificada pelo sol'); 
+insert into endereco (cep, uf, cidade, bairro, rua, numero, complemento, id_paciente) values
+('99010000', 'RS', 'Passo Fundo', 'Centro', 'Av. Brasil Oeste', '560', null, 1),
+('99025000', 'RS', 'Passo Fundo', 'Vila Vera Cruz', 'R. Caxias', '120', null, 2),
+('90010000', 'RS', 'Porto Alegre', 'Centro Histórico', 'Rua dos Andradas', '100', null, 3),
+('88025000', 'SC', 'Florianópolis', 'Agronômica', 'Av. Beira Mar Norte', '200', null, 4),
+('80020000', 'PR', 'Curitiba', 'Centro', 'Rua XV de Novembro', '500', null, 5);
+
+insert into prontuario (id_paciente, historico_familiar, tipo_pele) values
+(1, 'Mãe tem melasma', 'Oleosa'),
+(2, 'Histórico de câncer de pele na família', 'Seca/sensível'),
+(3, 'Pai e avô calvos', 'Mista'),
+(4, 'Psoríase na família materna', 'Ressecada'),
+(5, 'Diabético. Histórico de melanoma no irmão', 'Danificada pelo sol'); 
 
 --- Fluxo de Atendimento ---
 
@@ -62,9 +86,7 @@ insert into consulta (observacao, data_hora, status, valor, forma_pagamento, id_
 ('Primeira consulta capilar (Tricologia).', '2026-02-03 16:00', 'Realizada', 300.00, 'Dinheiro', 3, 2, 2), 
 ('Urgência: Lesão suspeita no nariz.', '2026-02-04 09:00', 'Realizada', 450.00, 'Cartão Débito', 5, 2, 2), 
 ('Paciente desmarcou por motivo de viagem.', '2026-02-05 11:00', 'Cancelada', 0.00, NULL, 4, 3, 1), 
-('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1),
-('Aplicação de toxina botulínica preventiva.', '2026-02-15 14:00', 'Realizada', 1300.00, 'Cartão Crédito', 1, 1, 1), 
-('Sessão de Laser para cicatrizes de acne antigas.', '2026-02-18 16:30', 'Realizada', 900.00, 'Pix', 3, 2, 2);    
+('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1);
 
 --- Detalhes do Atendimento ---
 
@@ -72,11 +94,13 @@ insert into atendimento (queixa, exame_fisico, hipotese_diagnostica, conduta, id
 ('Aumento de espinhas doloridas.', 'Pústulas inflamadas grau 3.', 'Acne Severa', 'Início de isotretinoína.', 1),
 ('Manchas escuras.', 'Hiperpigmentação malar.', 'Melasma Misto', 'Uso de ácidos e filtro solar.', 2),
 ('Entradas aumentando e cabelo ralo no topo.', 'Teste de tração positivo. Afinamento folicular.', 'Alopecia Androgenética', 'Iniciar minoxidil tópico e agendar laser.', 3),
-('Ferida no nariz que não cicatriza há 3 meses.', 'Lesão perolada com vasos visíveis na asa nasal esquerda.', 'Carcinoma Basocelular', 'Realizar biópsia punch imediata para confirmação.', 4),
-('Linhas de expressão na testa.', 'Rugas dinâmicas visíveis.', 'Envelhecimento precoce', 'Aplicação de Botox.', 7), 
-('Cicatrizes no rosto.', 'Marcas de acne atróficas.', 'Sequela de Acne', 'Sessão de Laser CO2.', 8);             
+('Ferida no nariz que não cicatriza há 3 meses.', 'Lesão perolada com vasos visíveis na asa nasal esquerda.', 'Carcinoma Basocelular', 'Realizar biópsia punch imediata para confirmação.', 4);
 
 --- Tabelas de Ligação --- 
+
+insert into paciente_alergia (id_paciente, id_alergia) values
+(2, 1), 
+(4, 2); 
 
 insert into identifica (id_atendimento, id_diag) values
 (1, 1),
@@ -93,6 +117,4 @@ insert into registra (id_atendimento, id_proc, regiao_corpo) values
 (1, 1, 'Avaliação Geral'), (1, 3, 'Face completa'),  -- consulta (R$100) + limpeza (R$180)
 (2, 1, 'Avaliação Geral'), (2, 4, 'Face (Zona T)'),  -- consulta (R$100) + peeling (R$250)
 (3, 2, 'Couro Cabeludo'),  -- consulta especializada tricologica (R$300)
-(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda'),  -- consulta (R$100) + biópsia (R$350)
-(5, 1, 'Avaliação'), (5, 5, 'Testa e Glabela'),  -- consulta (R$100) + botox (R$1200) 
-(6, 1, 'Avaliação'), (6, 8, 'Face lateral');  -- consulta (R$100) + laser (R$800)
+(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda');  -- consulta (R$100) + biópsia (R$350)
