@@ -4,15 +4,36 @@ create table paciente(
 	cpf varchar(11) unique not null,
 	sexo char(1),
 	data_nasc date not null,
-	endereco varchar(255),
 	celular varchar(11)
+);
+
+create table endereco(
+	id_endereco serial primary key,
+	cep char(8),
+	uf char(2),
+	cidade varchar(100),
+	bairro varchar(100),
+	rua varchar(100),
+	numero varchar(10),
+	complemento varchar(50),
+	id_paciente integer unique references paciente(id_paciente)
 );
 
 create table prontuario(
 	id_paciente integer primary key references paciente(id_paciente),
-	alergias varchar(255),
 	historico_familiar varchar(255),
 	tipo_pele varchar(255)
+);
+
+create table alergia(
+	id_alergia serial primary key,
+	nome_alergia varchar(100)
+);
+
+create table paciente_alergia(
+	id_paciente integer references paciente(id_paciente),
+	id_alergia integer references alergia(id_alergia),
+	primary key (id_paciente, id_alergia)
 );
 
 create table secretaria(
