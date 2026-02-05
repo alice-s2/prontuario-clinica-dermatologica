@@ -109,3 +109,5 @@ create table registra(
 	id_proc integer references procedimento(id_proc),
 	primary key(id_atendimento, id_proc)
 );
+
+alter table registra add column valor_proc numeric(10, 2);
