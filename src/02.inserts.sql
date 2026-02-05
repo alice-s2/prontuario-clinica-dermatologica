@@ -62,21 +62,24 @@ insert into paciente (nome, cpf, sexo, data_nasc, celular) values
 ('Maria Helena', '22233344455', 'F', '1970-09-12', '54998887474'),
 ('Roberto Campos', '33344455566', 'M', '1995-02-20', '51988881111'),
 ('Juliana Costa', '44455566677', 'F', '1988-11-05', '48977772222'),
-('Sr. Antônio Silva', '55566677788', 'M', '1955-07-30', '41999993333');
+('Sr. Antônio Silva', '55566677788', 'M', '1955-07-30', '41999993333'),
+('Carlos Silva', '12345678900', 'M', '1990-05-15', '11999998888');
 
 insert into endereco (cep, uf, cidade, bairro, rua, numero, complemento, id_paciente) values
 ('99010000', 'RS', 'Passo Fundo', 'Centro', 'Av. Brasil Oeste', '560', null, 1),
 ('99025000', 'RS', 'Passo Fundo', 'Vila Vera Cruz', 'R. Caxias', '120', null, 2),
 ('90010000', 'RS', 'Porto Alegre', 'Centro Histórico', 'Rua dos Andradas', '100', null, 3),
 ('88025000', 'SC', 'Florianópolis', 'Agronômica', 'Av. Beira Mar Norte', '200', null, 4),
-('80020000', 'PR', 'Curitiba', 'Centro', 'Rua XV de Novembro', '500', null, 5);
+('80020000', 'PR', 'Curitiba', 'Centro', 'Rua XV de Novembro', '500', null, 5),
+('01001000', 'SP', 'São Paulo', 'Centro', 'Rua das Flores', '123', 'Apto 10', 6);
 
 insert into prontuario (id_paciente, historico_familiar, tipo_pele) values
 (1, 'Mãe tem melasma', 'Oleosa'),
 (2, 'Histórico de câncer de pele na família', 'Seca/sensível'),
 (3, 'Pai e avô calvos', 'Mista'),
 (4, 'Psoríase na família materna', 'Ressecada'),
-(5, 'Diabético. Histórico de melanoma no irmão', 'Danificada pelo sol'); 
+(5, 'Diabético. Histórico de melanoma no irmão', 'Danificada pelo sol'),
+(6, 'Pai com histórico de psoríase.', 'Fototipo III, seca e sensível.');
 
 --- Fluxo de Atendimento ---
 
@@ -86,7 +89,8 @@ insert into consulta (observacao, data_hora, status, valor, forma_pagamento, id_
 ('Primeira consulta capilar (Tricologia).', '2026-02-03 16:00', 'Realizada', 300.00, 'Dinheiro', 3, 2, 2), 
 ('Urgência: Lesão suspeita no nariz.', '2026-02-04 09:00', 'Realizada', 450.00, 'Cartão Débito', 5, 2, 2), 
 ('Paciente desmarcou por motivo de viagem.', '2026-02-05 11:00', 'Cancelada', 0.00, NULL, 4, 3, 1), 
-('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1);
+('Retorno para nova Limpeza de Pele solicitada pela paciente.', '2026-03-01 14:00', 'Agendada', 280.00, NULL, 1, 1, 1),
+('Queixa de manchas no braço', '2026-03-05 16:00:00', 'Agendada', 350.00, NULL, 6, 1, 1); 
 
 --- Detalhes do Atendimento ---
 
@@ -94,7 +98,8 @@ insert into atendimento (queixa, exame_fisico, hipotese_diagnostica, conduta, id
 ('Aumento de espinhas doloridas.', 'Pústulas inflamadas grau 3.', 'Acne Severa', 'Início de isotretinoína.', 1),
 ('Manchas escuras.', 'Hiperpigmentação malar.', 'Melasma Misto', 'Uso de ácidos e filtro solar.', 2),
 ('Entradas aumentando e cabelo ralo no topo.', 'Teste de tração positivo. Afinamento folicular.', 'Alopecia Androgenética', 'Iniciar minoxidil tópico e agendar laser.', 3),
-('Ferida no nariz que não cicatriza há 3 meses.', 'Lesão perolada com vasos visíveis na asa nasal esquerda.', 'Carcinoma Basocelular', 'Realizar biópsia punch imediata para confirmação.', 4);
+('Ferida no nariz que não cicatriza há 3 meses.', 'Lesão perolada com vasos visíveis na asa nasal esquerda.', 'Carcinoma Basocelular', 'Realizar biópsia punch imediata para confirmação.', 4),
+('Manchas avermelhadas no antebraço direito há 5 dias.', 'Lesões descamativas, sem sinais de infecção. Teste de sensibilidade positivo.', 'Dermatite Atópica', 'Realizada biópsia. Prescrito corticoide. Retorno em 15 dias.', 7);
 
 --- Tabelas de Ligação --- 
 
@@ -106,15 +111,18 @@ insert into identifica (id_atendimento, id_diag) values
 (1, 1),
 (2, 2), 
 (3, 3), 
-(4, 6); 
+(4, 6),
+(5, 4);
 
 insert into prescreve (id_atendimento, id_med, modo_de_uso) values
-(1, 1, '1 cápsula ao dia (Roacutan)'),
+(1, 1, '1 cápsula ao dia (Roacutan) 20mg'),
 (2, 2, 'Camada fina à noite (Azellan)'),
-(3, 3, 'Aplicar 1ml no couro cabeludo 2x ao dia (Minoxidil)');
+(3, 3, 'Aplicar 1ml no couro cabeludo 2x ao dia (Minoxidil)'),
+(5, 3, 'Aplicar fina camada no local 2x ao dia por 7 dias');
 
 insert into registra (id_atendimento, id_proc, regiao_corpo) values
 (1, 1, 'Avaliação Geral'), (1, 3, 'Face completa'),  -- consulta (R$100) + limpeza (R$180)
 (2, 1, 'Avaliação Geral'), (2, 4, 'Face (Zona T)'),  -- consulta (R$100) + peeling (R$250)
 (3, 2, 'Couro Cabeludo'),  -- consulta especializada tricologica (R$300)
-(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda');  -- consulta (R$100) + biópsia (R$350)
+(4, 1, 'Avaliação Geral'), (4, 6, 'Asa nasal esquerda'),  -- consulta (R$100) + biópsia (R$350)
+(5, 1, 'Avaliação Geral'), (5, 6, 'Antebraço Direito');   -- consulta (R110) + biópsia (R$350)
